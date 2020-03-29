@@ -12,10 +12,20 @@ body.dark .text-muted {
 	color: var(--light) !important;
 }
 
-body.dark a {
+body.dark .card a {
 	color: #0063cc;
 }
 
 body.dark #btnDark {
 	color: var(--yellow);
+}
+
+body.dark .modal-content {
+	background-color: var(--gray-dark);
+}
+
+body.dark .close {
+	text-shadow: initial;
+	opacity: initial;
+	color: #fff;
 }
