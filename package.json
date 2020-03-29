@@ -16,7 +16,6 @@
     "express": "^4.17.1",
     "morgan": "^1.10.0",
     "natural": "^0.6.3",
-    "spelling-corrector": "^3.0.0",
     "stopword": "^1.0.0"
   },
   "devDependencies": {},
