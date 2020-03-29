@@ -22,7 +22,10 @@ body, .card, a, .text-muted, #btnDark {
 }
 
 body .card a {
-	color: #0063cc;
+	color: white;
+	background-color: #0063cc;
+	padding: 10px;
+	border-radius: 5px;
 	border-color: black;
 }
 

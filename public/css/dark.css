@@ -13,8 +13,8 @@ body.dark .text-muted {
 }
 
 body.dark .card a {
-	color: #0063cc;
-	background-color: red;
+	border-color: #0063cc;
+	background-color: var(--gray-dark);
 }
 
 body.dark #btnDark {
