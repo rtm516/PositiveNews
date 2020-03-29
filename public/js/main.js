@@ -24,9 +24,9 @@ function formatAMPM (date) {
 }
 
 function formatURL (url) {
-  const matches = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
+  const matches = url.match(/^https?:\/\/([^/?#]+)(?:[/?#]|$)/i)
   // return hostname (will be null if no match is found)
-  return matches[1];
+  return matches[1]
 }
 
 function setCookie (cname, cvalue, exdays) {
