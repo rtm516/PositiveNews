@@ -30,6 +30,11 @@ function isSafeArticle (article) {
   return !found
 }
 
+//import {getSentiment} from "./node_nlp/routes/nlp.js";
+function isPositiveArticle (article) {  
+  return (getSentiment(article) < 0);
+}
+
 function cacheUptoDate () {
   if (fs.existsSync('cache.json')) {
     const cache = fs.statSync('cache.json')
@@ -70,6 +75,7 @@ router.get('/query', function (req, res) {
       response.news.forEach(article => {
         if (article.language !== 'en') { return }
         if (!isSafeArticle(article)) { return }
+        if (!isPositiveArticle(article)) { return }
 
         const tmpNews = {}
         tmpNews.title = article.title
