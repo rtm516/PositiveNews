@@ -1,13 +1,14 @@
 const express = require('express')
 const CurrentsAPI = require('currentsapi')
 const fs = require('fs')
+const getSentiment = require('./nlp')
 
 const router = express.Router()
 
 const apiKey = '3bVjgioSJtX59a2MKl3beRcMSH6WtB6Z7kxadAa6bFumBdVb'
 const currentsapi = new CurrentsAPI(apiKey)
 
-const refreshTime = 500 * 60 * 1000 // 5 mins
+const refreshTime = 5 * 60 * 1000 // 5 mins
 
 const badWords = [
   'coronavirus',
@@ -30,9 +31,8 @@ function isSafeArticle (article) {
   return !found
 }
 
-//import {getSentiment} from "./node_nlp/routes/nlp.js";
-function isPositiveArticle (article) {  
-  return (getSentiment(article) < 0);
+function isPositiveArticle (article) {
+  return (getSentiment(article) < 0)
 }
 
 function cacheUptoDate () {

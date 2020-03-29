@@ -4,8 +4,7 @@
   "main": "site.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node site.js",
-    "dev": "nodemon ./bin/www"
+    "start": "node site.js"
   },
   "author": "rtm516",
   "license": "ISC",
@@ -15,10 +14,8 @@
     "currentsapi": "^0.1.0",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
-    "express-generator": "^4.16.1",
     "morgan": "^1.10.0",
     "natural": "^0.6.3",
-    "nodemon": "^2.0.2",
     "spelling-corrector": "^3.0.0",
     "stopword": "^1.0.0"
   },
