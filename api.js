@@ -32,8 +32,7 @@ function isSafeArticle (article) {
 }
 
 function isPositiveArticle (article) {
-  text = article.title + " " + article.description;
-  return (nlp.getSentiment(text) > 0)
+  return (getSentiment(article.title) <= 0) && (getSentiment(article.description) <= 0)
 }
 
 function cacheUptoDate () {
