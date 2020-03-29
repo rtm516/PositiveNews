@@ -32,7 +32,7 @@ function isSafeArticle (article) {
 }
 
 function isPositiveArticle (article) {
-  return (nlp.getSentiment(article.title) <= 0) && (nlp.getSentiment(article.description) <= 0)
+  return (nlp.getSentiment(article.title) >= 0) && (nlp.getSentiment(article.description) >= 0)
 }
 
 function cacheUptoDate () {
