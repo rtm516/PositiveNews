@@ -23,6 +23,12 @@ function formatAMPM (date) {
   return strTime
 }
 
+function formatURL (url) {
+  const matches = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
+  // return hostname (will be null if no match is found)
+  return matches[1];
+}
+
 function setCookie (cname, cvalue, exdays) {
   var d = new Date()
   d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000))
@@ -49,13 +55,14 @@ function generateArticle (article) {
   let newHTML = ''
 
   article.date = formatDate(article.date)
+  article.source = formatURL(article.url);
 
   newHTML += '<div class="card">'
 
   newHTML += '<div class="card-body">'
 
   newHTML += `<h5 class="card-title">${article.title}</h5>`
-  newHTML += `<h6 class="card-subtitle mb-2 text-muted">${article.date}</h6>`
+  newHTML += `<h6 class="card-subtitle mb-2 text-muted">${article.date + ' • ' + article.source}</h6>`
   newHTML += `<p class="card-text">${article.desc}</p>`
   newHTML += `<a href="${article.url}" class="card-link">Visit</a>`
 
