@@ -27,12 +27,13 @@ function isSafeArticle (article) {
 }
 
 router.get('/query', function (req, res) {
+  /*
   res.json({
     success: true,
     news: { 'a348b30b-cebc-45d5-9bc1-b8767875604f': { title: 'North Korea launches apparent ballistic missiles into ocean', desc: 'SEOUL (Reuters) - North Korea fired what appeared to be two short-range ballistic missiles into the ocean off its east coast on Sunday, military officials in South Korea and Japan said, the latest in an unprecedented flurry of launches this month.\n\nTwo "short-range projectiles" were launched from th...', url: 'https://uk.reuters.com/article/uk-northkorea-missiles/north-korea-launches-apparent-ballistic-missiles-into-ocean-idUKKBN21F0Y0?il=0', date: '2020-03-29 00:02:02 +0000' } }
   })
+  */
   
-  /*
   currentsapi.search({
     language: 'en',
     country: 'GB'
@@ -63,7 +64,6 @@ router.get('/query', function (req, res) {
       })
     }
   })
-  */
 })
 
 router.get('*', function (req, res) {
