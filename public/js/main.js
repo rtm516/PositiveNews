@@ -23,6 +23,28 @@ function formatAMPM (date) {
   return strTime
 }
 
+function setCookie (cname, cvalue, exdays) {
+  var d = new Date()
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000))
+  var expires = 'expires=' + d.toUTCString()
+  document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+}
+
+function toggleDark () {
+  document.querySelector('body').classList.toggle('dark')
+
+  const btnDark = document.querySelector('#btnDark')
+  btnDark.classList.toggle('btn-dark')
+  btnDark.classList.toggle('btn-light')
+
+  const btnDarkIcon = document.querySelector('#btnDark > i')
+  btnDarkIcon.classList.toggle('fa-moon')
+  btnDarkIcon.classList.toggle('fa-sun')
+
+  setCookie('dark', btnDarkIcon.classList.contains('fa-sun'), 365)
+}
+document.querySelector('#btnDark').addEventListener('click', toggleDark)
+
 function generateArticle (article) {
   let newHTML = ''
 

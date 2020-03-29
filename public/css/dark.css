@@ -1,0 +1,21 @@
+body.dark {
+	background-color: var(--gray-dark);
+	color: #fff;
+}
+
+body.dark .card {
+	background-color: var(--gray);
+	color: #fff;
+}
+
+body.dark .text-muted {
+	color: var(--light) !important;
+}
+
+body.dark a {
+	color: #0063cc;
+}
+
+body.dark #btnDark {
+	color: var(--yellow);
+}

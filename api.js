@@ -7,7 +7,7 @@ const router = express.Router()
 const apiKey = '3bVjgioSJtX59a2MKl3beRcMSH6WtB6Z7kxadAa6bFumBdVb'
 const currentsapi = new CurrentsAPI(apiKey)
 
-const refreshTime = 5 * 60 * 1000 // 5 mins
+const refreshTime = 500 * 60 * 1000 // 5 mins
 
 const badWords = [
   'coronavirus',

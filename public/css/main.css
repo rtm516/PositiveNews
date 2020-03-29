@@ -16,3 +16,15 @@ h1 {
 #btn-container > button {
 	display: inline-block;
 }
+
+body, .card, a, .text-muted, #btnDark {
+	transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+#btnDark {
+	margin-right: 5px;
+}
+
+.card {
+	color: #212529;
+}
