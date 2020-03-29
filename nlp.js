@@ -19,9 +19,11 @@ module.exports.getSentiment = function (text) {
   const tokenizedText = tokenizer.tokenize(alphaOnlyText)
 
   // Spelling corrections - removed to test speed implications
-  /*tokenizedText.forEach((word, index) => {
+  /*
+  tokenizedText.forEach((word, index) => {
     tokenizedText[index] = spellCorrector.correct(word)
-  })*/
+  })
+  */
 
   // Remove stopwords (but, a, or, what)
   const filteredText = SW.removeStopwords(tokenizedText)

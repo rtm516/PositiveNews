@@ -61,7 +61,7 @@ function generateArticle (article) {
   let newHTML = ''
 
   article.date = formatDate(article.date)
-  article.source = formatURL(article.url);
+  article.source = formatURL(article.url)
 
   newHTML += '<div class="card">'
 
