@@ -18,7 +18,7 @@ app.use(express.static('public'))
 
 app.get('/', (req, res) => {
   console.log(req.cookies.dark)
-  res.render('pages/index', { darkTheme: req.cookies.dark || false })
+  res.render('pages/index', { darkTheme: req.cookies.dark !== undefined ? req.cookies.dark === 'true' : false })
 })
 
 app.listen(port, () => console.log(`Positive News listening on port ${port}!`))
