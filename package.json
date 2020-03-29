@@ -11,7 +11,8 @@
   "dependencies": {
     "currentsapi": "^0.1.0",
     "ejs": "^3.0.1",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {},
   "repository": {
@@ -22,5 +23,10 @@
     "url": "https://github.com/rtm516/PositiveNews/issues"
   },
   "homepage": "https://positive-news.glitch.me/",
-  "description": "A simple positive news site built for NU: Flatten The Curve"
+  "description": "A simple positive news site built for NU: Flatten The Curve",
+  "nodemonConfig": {
+    "ignore": [
+      "cache.json"
+    ]
+  }
 }

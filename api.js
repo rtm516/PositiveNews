@@ -1,9 +1,13 @@
 const express = require('express')
 const CurrentsAPI = require('currentsapi')
+const fs = require('fs')
+
 const router = express.Router()
 
 const apiKey = '3bVjgioSJtX59a2MKl3beRcMSH6WtB6Z7kxadAa6bFumBdVb'
 const currentsapi = new CurrentsAPI(apiKey)
+
+const refreshTime = 5 * 60 * 1000 // 5 mins
 
 const badWords = [
   'coronavirus',
@@ -26,6 +30,17 @@ function isSafeArticle (article) {
   return !found
 }
 
+function cacheUptoDate () {
+  if (fs.existsSync('cache.json')) {
+    const cache = fs.statSync('cache.json')
+    if (cache.isFile() && (Date.now() - cache.ctimeMs) < refreshTime) {
+      return true
+    }
+  }
+
+  return false
+}
+
 router.get('/query', function (req, res) {
   /*
   res.json({
@@ -34,6 +49,17 @@ router.get('/query', function (req, res) {
   })
   */
 
+  if (cacheUptoDate()) {
+    console.log('Loading news from cache')
+    res.json({
+      success: true,
+      news: JSON.parse(fs.readFileSync('cache.json', 'utf8') || {})
+    })
+
+    return
+  }
+
+  console.log('Updating news')
   currentsapi.search({
     language: 'en',
     country: 'GB'
@@ -53,6 +79,8 @@ router.get('/query', function (req, res) {
 
         safeNews[article.id] = tmpNews
       })
+
+      fs.writeFile('cache.json', JSON.stringify(safeNews), () => {})
 
       res.json({
         success: true,
