@@ -47,7 +47,7 @@ function generateArticle (article) {
 }
 
 async function getNews () {
-  const main = document.querySelector('#main')
+  const main = document.querySelector('main')
 
   const response = await window.fetch('/api/query')
   const json = await response.json()
