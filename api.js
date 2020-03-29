@@ -42,6 +42,7 @@ router.get('/query', function (req, res) {
       const safeNews = {}
 
       response.news.forEach(article => {
+        if (article.language !== 'en') { return }
         if (!isSafeArticle(article)) { return }
 
         const tmpNews = {}
