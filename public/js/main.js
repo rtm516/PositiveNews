@@ -37,7 +37,7 @@ function setCookie (cname, cvalue, exdays) {
 }
 
 function toggleDark () {
-  document.querySelector('body').classList.toggle('dark')
+  document.body.classList.toggle('dark')
 
   const btnDark = document.querySelector('#btnDark')
   btnDark.classList.toggle('btn-dark')
@@ -47,7 +47,13 @@ function toggleDark () {
   btnDarkIcon.classList.toggle('fa-moon')
   btnDarkIcon.classList.toggle('fa-sun')
 
-  setCookie('dark', btnDarkIcon.classList.contains('fa-sun'), 365)
+  const btnsLink = document.querySelectorAll('a.card-link')
+  btnsLink.forEach(btnLink => {
+    btnLink.classList.toggle('btn-primary')
+    btnLink.classList.toggle('btn-dark')
+  })
+
+  setCookie('dark', document.body.classList.contains('dark'), 365)
 }
 document.querySelector('#btnDark').addEventListener('click', toggleDark)
 
@@ -64,7 +70,13 @@ function generateArticle (article) {
   newHTML += `<h5 class="card-title">${article.title}</h5>`
   newHTML += `<h6 class="card-subtitle mb-2 text-muted">${article.date + ' • ' + article.source}</h6>`
   newHTML += `<p class="card-text">${article.desc}</p>`
-  newHTML += `<a href="${article.url}" class="card-link">Visit</a>`
+
+  let btnClass = 'btn-primary'
+  if (document.body.classList.contains('dark')) {
+    btnClass = 'btn-dark'
+  }
+
+  newHTML += `<a href="${article.url}" class="card-link btn ${btnClass}">Visit</a>`
 
   newHTML += '</div>'
 

@@ -21,14 +21,6 @@ body, .card, a, .text-muted, #btnDark {
 	transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-body .card a {
-	color: white;
-	background-color: #0063cc;
-	padding: 10px;
-	border-radius: 5px;
-	border-color: black;
-}
-
 #btnDark {
 	margin-right: 5px;
 }

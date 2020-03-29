@@ -12,11 +12,6 @@ body.dark .text-muted {
 	color: var(--light) !important;
 }
 
-body.dark .card a {
-	border-color: #0063cc;
-	background-color: var(--gray-dark);
-}
-
 body.dark #btnDark {
 	color: var(--yellow);
 }
