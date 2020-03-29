@@ -32,7 +32,7 @@ function isSafeArticle (article) {
 }
 
 function isPositiveArticle (article) {
-  return (getSentiment(article) < 0)
+  return (getSentiment(article) <= 0)
 }
 
 function cacheUptoDate () {
@@ -47,13 +47,6 @@ function cacheUptoDate () {
 }
 
 router.get('/query', function (req, res) {
-  /*
-  res.json({
-    success: true,
-    news: { 'a348b30b-cebc-45d5-9bc1-b8767875604f': { title: 'North Korea launches apparent ballistic missiles into ocean', desc: 'SEOUL (Reuters) - North Korea fired what appeared to be two short-range ballistic missiles into the ocean off its east coast on Sunday, military officials in South Korea and Japan said, the latest in an unprecedented flurry of launches this month.\n\nTwo "short-range projectiles" were launched from th...', url: 'https://uk.reuters.com/article/uk-northkorea-missiles/north-korea-launches-apparent-ballistic-missiles-into-ocean-idUKKBN21F0Y0?il=0', date: '2020-03-29 00:02:02 +0000' } }
-  })
-  */
-
   if (cacheUptoDate()) {
     console.log('Loading news from cache')
     res.json({
@@ -74,8 +67,10 @@ router.get('/query', function (req, res) {
 
       response.news.forEach(article => {
         if (article.language !== 'en') { return }
-        if (!isSafeArticle(article)) { return }
-        if (!isPositiveArticle(article)) { return }
+
+        const positiveArticle = isPositiveArticle(article)
+        if (!isSafeArticle(article) && !positiveArticle) { return }
+        if (!positiveArticle) { return }
 
         const tmpNews = {}
         tmpNews.title = article.title
