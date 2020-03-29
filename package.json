@@ -27,7 +27,9 @@
   "description": "A simple positive news site built for NU: Flatten The Curve",
   "nodemonConfig": {
     "ignore": [
-      "cache.json"
+      "cache.json",
+      "public/*",
+      "views/*"
     ]
   }
 }
