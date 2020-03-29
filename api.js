@@ -1,7 +1,7 @@
 const express = require('express')
 const CurrentsAPI = require('currentsapi')
 const fs = require('fs')
-const getSentiment = require('./nlp')
+const { getSentiment } = require('./nlp')
 
 const router = express.Router()
 
@@ -32,7 +32,7 @@ function isSafeArticle (article) {
 }
 
 function isPositiveArticle (article) {
-  return (getSentiment(article) <= 0)
+  return (getSentiment(article.title) <= 0) && (getSentiment(article.description) <= 0)
 }
 
 function cacheUptoDate () {
