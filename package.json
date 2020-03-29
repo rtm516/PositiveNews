@@ -1,7 +1,6 @@
 {
   "name": "positivenews",
   "version": "1.0.0",
-  "description": "",
   "main": "site.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,7 +11,16 @@
   "dependencies": {
     "currentsapi": "^0.1.0",
     "ejs": "^3.0.1",
-    "express": "^4.17.1",
-    "request": "^2.88.2"
-  }
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rtm516/PositiveNews.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rtm516/PositiveNews/issues"
+  },
+  "homepage": "https://github.com/rtm516/PositiveNews#readme",
+  "description": ""
 }
