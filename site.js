@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser')
 
 const app = express()
 const api = require('./api')
+const rss = require('./rss')
 
 // Get the environment port or use the default 3000 (for nice glitch.me support)
 const port = process.env.PORT || 3000
@@ -16,6 +17,9 @@ app.use(cookieParser())
 
 // Include the api route
 app.use('/api', api)
+
+// Include the rss route
+app.use('/rss', rss)
 
 // Setup the public folder for static files
 app.use(express.static('public'))
