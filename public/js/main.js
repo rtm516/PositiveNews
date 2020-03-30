@@ -27,7 +27,7 @@ function formatAMPM (date) {
 
 // Trim and clean up the url to just return domain
 function formatURL (url) {
-  const matches = url.match(/^https?:\/\/([^/?#]+)(?:[/?#]|$)/i)
+  const matches = url.match(/^https?:\/\/(?:www\.)?([^/?#]+)(?:[/?#]|$)/i)
   return matches[1]
 }
 
@@ -88,7 +88,7 @@ function generateArticle (article) {
   newHTML += '<div class="card-body">'
 
   newHTML += `<h5 class="card-title">${article.title}</h5>`
-  newHTML += `<h6 class="card-subtitle mb-2 text-muted">${article.date + ' • ' + article.source}</h6>`
+  newHTML += `<h6 class="card-subtitle mb-2 text-muted">${article.date + ' &bull; ' + article.source}</h6>`
   newHTML += `<p class="card-text">${article.desc.replace(/\n/g, '<br>')}</p>`
 
   // Theme the link button appropriately for dark theme
