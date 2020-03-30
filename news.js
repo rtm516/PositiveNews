@@ -50,6 +50,26 @@ function cacheUptoDate () {
   return false
 }
 
+// Check if an article is positive and pulling over only infomation we need
+function cleanArticle (article, safeNews, page) {
+  if (article.language !== 'en') { return }
+
+  // If article is deemed unsafe, raise neutrality bar
+  const safeArticle = isSafeArticle(article)
+  const neutral = safeArticle ? 0 : 0.25
+
+  // If article is deemed negative, discard
+  if (!isPositiveArticle(article, neutral)) { return }
+
+  const tmpNews = {}
+  tmpNews.title = article.title
+  tmpNews.desc = article.description
+  tmpNews.url = article.url
+  tmpNews.date = new Date(article.published).toString()
+
+  safeNews[article.id + page] = tmpNews
+}
+
 module.exports.getNews = function (callback) {
   if (cacheUptoDate()) {
     // If the cache is recent enough return that insted of refreshing
@@ -64,36 +84,38 @@ module.exports.getNews = function (callback) {
   console.log('Updating news')
   currentsapi.search({
     language: 'en',
-    country: 'GB'
+    country: 'GB',
+    page: 1
   }).then(response => {
     if (response.status === 'ok') {
-      const safeNews = {}
+      currentsapi.search({
+        language: 'en',
+        country: 'GB',
+        page: 2
+      }).then(response2 => {
+        if (response2.status === 'ok') {
+          const safeNews = {}
 
-      // Loop through each article checking its positive and pulling over only infomation we need
-      response.news.forEach(article => {
-        if (article.language !== 'en') { return }
+          // Loop through each article and parsing it as needed for page 1
+          response.news.forEach(article => {
+            cleanArticle(article, safeNews, 1)
+          })
 
-        // If article is deemed unsafe, raise neutrality bar
-        const safeArticle = isSafeArticle(article)
-        const neutral = safeArticle ? 0 : 0.25
+          // Loop through each article and parsing it as needed for page 2
+          response2.news.forEach(article => {
+            cleanArticle(article, safeNews, 2)
+          })
 
-        // If article is deemed negative, discard
-        if (!isPositiveArticle(article, neutral)) { return }
+          // Write the latest safe news to the cache
+          fs.writeFile('cache.json', JSON.stringify(safeNews), () => {})
 
-        const tmpNews = {}
-        tmpNews.title = article.title
-        tmpNews.desc = article.description
-        tmpNews.url = article.url
-        tmpNews.date = new Date(article.published).toString()
-
-        safeNews[article.id] = tmpNews
+          // Send the new safe news to the client
+          callback(safeNews)
+        } else {
+          // We got a bad status code so send an error to the client
+          callback()
+        }
       })
-
-      // Write the latest safe news to the cache
-      fs.writeFile('cache.json', JSON.stringify(safeNews), () => {})
-
-      // Send the new safe news to the client
-      callback(safeNews)
     } else {
       // We got a bad status code so send an error to the client
       callback()
