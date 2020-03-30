@@ -26,7 +26,7 @@ router.get('/feed', function (req, res) {
       rssXML += `\t\t\t<title>${article.title}</title>\n`
       rssXML += `\t\t\t<link>${article.url}</link>\n`
       rssXML += `\t\t\t<description>${article.desc}</description>\n`
-      rssXML += `\t\t\t<pubDate>${article.date}</pubDate>\n`
+      rssXML += `\t\t\t<pubDate>${new Date(article.date).toUTCString()}</pubDate>\n`
       rssXML += '\t\t</item>\n'
     })
 
