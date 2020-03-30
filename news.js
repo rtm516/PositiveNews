@@ -51,8 +51,9 @@ function cacheUptoDate () {
 }
 
 // Check if an article is positive and pulling over only infomation we need
-function cleanArticle (article, safeNews, page) {
+function cleanArticle (article, safeNews) {
   if (article.language !== 'en') { return }
+  if (safeNews[article.id] !== undefined) { return }
 
   // If article is deemed unsafe, raise neutrality bar
   const safeArticle = isSafeArticle(article)
@@ -67,7 +68,7 @@ function cleanArticle (article, safeNews, page) {
   tmpNews.url = article.url
   tmpNews.date = new Date(article.published).toString()
 
-  safeNews[article.id + page] = tmpNews
+  safeNews[article.id] = tmpNews
 }
 
 module.exports.getNews = function (callback) {
@@ -85,25 +86,25 @@ module.exports.getNews = function (callback) {
   currentsapi.search({
     language: 'en',
     country: 'GB',
-    page: 1
+    page_number: 1
   }).then(response => {
     if (response.status === 'ok') {
       currentsapi.search({
         language: 'en',
         country: 'GB',
-        page: 2
+        page_number: 2
       }).then(response2 => {
         if (response2.status === 'ok') {
           const safeNews = {}
 
           // Loop through each article and parsing it as needed for page 1
           response.news.forEach(article => {
-            cleanArticle(article, safeNews, 1)
+            cleanArticle(article, safeNews)
           })
 
           // Loop through each article and parsing it as needed for page 2
           response2.news.forEach(article => {
-            cleanArticle(article, safeNews, 2)
+            cleanArticle(article, safeNews)
           })
 
           // Write the latest safe news to the cache
