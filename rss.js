@@ -38,10 +38,14 @@ router.get('/feed', function (req, res) {
 
 // Default 404 route
 router.get('*', function (req, res) {
-  res.status(404).json({
-    success: false,
-    message: 'Unknown request'
-  })
+  let xmlError = ''
+  xmlError += '<?xml version="2.0" encoding="UTF-8" ?>\n'
+  xmlError += '<response>\n'
+  xmlError += '\t<success>false</success>\n'
+  xmlError += '\t<message>Unknown request</message>\n'
+  xmlError += '</response>'
+
+  res.status(404).set('Content-Type', 'text/xml').send(xmlError)
 })
 
 module.exports = router
