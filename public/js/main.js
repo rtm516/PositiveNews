@@ -89,7 +89,7 @@ function generateArticle (article) {
 
   newHTML += `<h5 class="card-title">${article.title}</h5>`
   newHTML += `<h6 class="card-subtitle mb-2 text-muted">${article.date + ' • ' + article.source}</h6>`
-  newHTML += `<p class="card-text">${article.desc}</p>`
+  newHTML += `<p class="card-text">${article.desc.replace(/\n/g, '<br>')}</p>`
 
   // Theme the link button appropriately for dark theme
   let btnClass = 'btn-primary'
