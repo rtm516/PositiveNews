@@ -9,6 +9,7 @@ router.get('/feed', function (req, res) {
   getNews((data) => {
     if (data === undefined) { data = {} }
 
+    // Build the static xml feed data
     let rssXML = ''
     rssXML += '<?xml version="1.0" ?>'
     rssXML += '<rss version="2.0">'
@@ -19,6 +20,7 @@ router.get('/feed', function (req, res) {
     rssXML += '<language>en-gb</language>'
     rssXML += '<ttl>5</ttl>'
 
+    // Fill in the items for each article
     Object.values(data).forEach(article => {
       rssXML += '<item>'
       rssXML += `<title>${article.title}</title>`
@@ -31,6 +33,7 @@ router.get('/feed', function (req, res) {
     rssXML += '</channel>'
     rssXML += '</rss>'
 
+    // Set the content type and send to the client
     res.set('Content-Type', 'text/xml')
     res.send(rssXML)
   })
@@ -38,6 +41,7 @@ router.get('/feed', function (req, res) {
 
 // Default 404 route
 router.get('*', function (req, res) {
+  // Build the xml 404 page
   let xmlError = ''
   xmlError += '<?xml version="2.0" encoding="UTF-8" ?>\n'
   xmlError += '<response>\n'
@@ -45,6 +49,7 @@ router.get('*', function (req, res) {
   xmlError += '\t<message>Unknown request</message>\n'
   xmlError += '</response>'
 
+  // Set the status code, content type and send to the client
   res.status(404).set('Content-Type', 'text/xml').send(xmlError)
 })
 
