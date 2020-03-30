@@ -11,26 +11,26 @@ router.get('/feed', function (req, res) {
 
     // Build the static xml feed data
     let rssXML = ''
-    rssXML += '<?xml version="1.0" ?>'
-    rssXML += '<rss version="2.0">'
-    rssXML += '<channel>'
-    rssXML += '<title>Positive News</title>'
-    rssXML += '<link>https://positive-news.glitch.me/</link>'
-    rssXML += '<description>The latest postive news</description>'
-    rssXML += '<language>en-gb</language>'
-    rssXML += '<ttl>5</ttl>'
+    rssXML += '<?xml version="1.0" ?>\n'
+    rssXML += '<rss version="2.0">\n'
+    rssXML += '\t<channel>\n'
+    rssXML += '\t\t<title>Positive News</title>\n'
+    rssXML += '\t\t<link>https://positive-news.glitch.me/</link>\n'
+    rssXML += '\t\t<description>The latest postive news</description>\n'
+    rssXML += '\t\t<language>en-gb</language>\n'
+    rssXML += '\t\t<ttl>5</ttl>\n'
 
     // Fill in the items for each article
     Object.values(data).forEach(article => {
-      rssXML += '<item>'
-      rssXML += `<title>${article.title}</title>`
-      rssXML += `<link>${article.url}</link>`
-      rssXML += `<description>${article.desc}</description>`
-      rssXML += `<pubDate>${article.date}</pubDate>`
-      rssXML += '</item>'
+      rssXML += '\t\t<item>\n'
+      rssXML += `\t\t\t<title>${article.title}</title>\n`
+      rssXML += `\t\t\t<link>${article.url}</link>\n`
+      rssXML += `\t\t\t<description>${article.desc}</description>\n`
+      rssXML += `\t\t\t<pubDate>${article.date}</pubDate>\n`
+      rssXML += '\t\t</item>\n'
     })
 
-    rssXML += '</channel>'
+    rssXML += '\t</channel>\n'
     rssXML += '</rss>'
 
     // Set the content type and send to the client
