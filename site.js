@@ -1,7 +1,6 @@
 const express = require('express')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
-require('./override-console-log.js')
 
 const app = express()
 const api = require('./api')
