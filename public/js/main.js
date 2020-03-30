@@ -53,6 +53,15 @@ function toggleDark () {
     btnLink.classList.toggle('btn-dark')
   })
 
+  if (document.body.classList.contains('dark')) {
+    const metaTag = document.createElement('meta')
+    metaTag.name = 'theme-color'
+    metaTag.content = '#343a40'
+    document.head.appendChild(metaTag)
+  } else {
+    document.querySelector('meta[name="theme-color"]').remove()
+  }
+
   setCookie('dark', document.body.classList.contains('dark'), 365)
 }
 document.querySelector('#btnDark').addEventListener('click', toggleDark)
