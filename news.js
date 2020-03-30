@@ -42,7 +42,7 @@ function isPositiveArticle (article, neutral = 0) {
 function cacheUptoDate () {
   if (fs.existsSync('cache.json')) {
     const cache = fs.statSync('cache.json')
-    if (cache.isFile() && (Date.now() - cache.ctimeMs) < refreshTime) {
+    if (cache.isFile() && (Date.now() - cache.mtimeMs) < refreshTime) {
       return true
     }
   }
