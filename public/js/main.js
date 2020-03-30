@@ -1,9 +1,9 @@
 // Format the given date with the time as HH:MMAM/PM DD/MM/YYYY
 function formatDate (date) {
-  var d = new Date(date)
-  var month = '' + (d.getMonth() + 1)
-  var day = '' + d.getDate()
-  var year = d.getFullYear()
+  const d = new Date(date)
+  let month = '' + (d.getMonth() + 1)
+  let day = '' + d.getDate()
+  const year = d.getFullYear()
 
   if (month.length < 2) { month = '0' + month }
   if (day.length < 2) { day = '0' + day }
@@ -13,15 +13,15 @@ function formatDate (date) {
 
 // Extract and format the given time from the date HH:MMAM/PM
 function formatAMPM (date) {
-  var hours = date.getHours()
-  var minutes = date.getMinutes()
-  var ampm = hours >= 12 ? 'PM' : 'AM'
+  let hours = date.getHours()
+  let minutes = date.getMinutes()
+  const ampm = hours >= 12 ? 'PM' : 'AM'
 
   hours = hours % 12
   hours = hours || 12
   minutes = minutes < 10 ? '0' + minutes : minutes
 
-  var strTime = hours + ':' + minutes + ampm
+  const strTime = hours + ':' + minutes + ampm
   return strTime
 }
 
@@ -33,9 +33,9 @@ function formatURL (url) {
 
 // A helper function to set a browser cookie
 function setCookie (cname, cvalue, exdays) {
-  var d = new Date()
+  const d = new Date()
   d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000))
-  var expires = 'expires=' + d.toUTCString()
+  const expires = 'expires=' + d.toUTCString()
   document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/'
 }
 

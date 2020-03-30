@@ -81,7 +81,7 @@ module.exports.getNews = function (callback) {
         tmpNews.title = article.title
         tmpNews.desc = article.description
         tmpNews.url = article.url
-        tmpNews.date = article.published
+        tmpNews.date = new Date(article.published).toString()
 
         safeNews[article.id] = tmpNews
       })
