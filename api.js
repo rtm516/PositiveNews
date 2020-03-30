@@ -5,11 +5,15 @@ const { getSentiment } = require('./nlp')
 
 const router = express.Router()
 
+// Setup the news api using https://www.currentsapi.services/
 const apiKey = '3bVjgioSJtX59a2MKl3beRcMSH6WtB6Z7kxadAa6bFumBdVb'
 const currentsapi = new CurrentsAPI(apiKey)
 
+// The time the cache is kept for
+// with 600 api req a day it can be as low as 2.4 mins
 const refreshTime = 5 * 60 * 1000 // 5 mins
 
+// The list of words to run extra checks on
 const badWords = [
   'coronavirus',
   'corona virus',
@@ -20,6 +24,7 @@ const badWords = [
   'assault'
 ]
 
+// Check if the article has any bad words in
 function isSafeArticle (article) {
   let found = false
   badWords.forEach(word => {
@@ -31,10 +36,12 @@ function isSafeArticle (article) {
   return !found
 }
 
+// Work out based on NLP if the article is positive
 function isPositiveArticle (article) {
   return (getSentiment(article.title) >= 0) && (getSentiment(article.description) >= 0)
 }
 
+// Check if the cache is younger than refreshTime
 function cacheUptoDate () {
   if (fs.existsSync('cache.json')) {
     const cache = fs.statSync('cache.json')
@@ -46,8 +53,10 @@ function cacheUptoDate () {
   return false
 }
 
+// The main news query route
 router.get('/query', function (req, res) {
   if (cacheUptoDate()) {
+    // If the cache is recent enough return that insted of refreshing
     console.log('Loading news from cache')
     res.json({
       success: true,
@@ -57,6 +66,7 @@ router.get('/query', function (req, res) {
     return
   }
 
+  // Get the latest news because the cache is old/missing
   console.log('Updating news')
   currentsapi.search({
     language: 'en',
@@ -65,6 +75,7 @@ router.get('/query', function (req, res) {
     if (response.status === 'ok') {
       const safeNews = {}
 
+      // Loop through each article checking its positive and pulling over only infomation we need
       response.news.forEach(article => {
         if (article.language !== 'en') { return }
 
@@ -81,13 +92,16 @@ router.get('/query', function (req, res) {
         safeNews[article.id] = tmpNews
       })
 
+      // Write the latest safe news to the cache
       fs.writeFile('cache.json', JSON.stringify(safeNews), () => {})
 
+      // Send the new safe news to the client
       res.json({
         success: true,
         news: safeNews
       })
     } else {
+      // We got a bad status code so send an error to the client
       res.json({
         success: false,
         message: 'An unknown error occured'
@@ -96,6 +110,7 @@ router.get('/query', function (req, res) {
   })
 })
 
+// Default 404 route
 router.get('*', function (req, res) {
   res.status(404).json({
     success: false,

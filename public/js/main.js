@@ -1,3 +1,4 @@
+// Format the given date with the time as HH:MMAM/PM DD/MM/YYYY
 function formatDate (date) {
   var d = new Date(date)
   var month = '' + (d.getMonth() + 1)
@@ -10,6 +11,7 @@ function formatDate (date) {
   return formatAMPM(d) + ' ' + [day, month, year].join('/')
 }
 
+// Extract and format the given time from the date HH:MMAM/PM
 function formatAMPM (date) {
   var hours = date.getHours()
   var minutes = date.getMinutes()
@@ -23,12 +25,13 @@ function formatAMPM (date) {
   return strTime
 }
 
+// Trim and clean up the url to just return domain
 function formatURL (url) {
   const matches = url.match(/^https?:\/\/([^/?#]+)(?:[/?#]|$)/i)
-  // return hostname (will be null if no match is found)
   return matches[1]
 }
 
+// A helper function to set a browser cookie
 function setCookie (cname, cvalue, exdays) {
   var d = new Date()
   d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000))
@@ -36,23 +39,28 @@ function setCookie (cname, cvalue, exdays) {
   document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/'
 }
 
+// Toggle dark mode on and off using various classes
 function toggleDark () {
   document.body.classList.toggle('dark')
 
+  // Change the dark theme button colour
   const btnDark = document.querySelector('#btnDark')
   btnDark.classList.toggle('btn-dark')
   btnDark.classList.toggle('btn-light')
 
+  // Change the dark theme button icon
   const btnDarkIcon = document.querySelector('#btnDark > i')
   btnDarkIcon.classList.toggle('fa-moon')
   btnDarkIcon.classList.toggle('fa-sun')
 
+  // Change the article link button colours
   const btnsLink = document.querySelectorAll('a.card-link')
   btnsLink.forEach(btnLink => {
     btnLink.classList.toggle('btn-primary')
     btnLink.classList.toggle('btn-dark')
   })
 
+  // Create or destroy the theme-color meta tag for chrome nav bar colour on mobile
   if (document.body.classList.contains('dark')) {
     const metaTag = document.createElement('meta')
     metaTag.name = 'theme-color'
@@ -62,13 +70,16 @@ function toggleDark () {
     document.querySelector('meta[name="theme-color"]').remove()
   }
 
+  // Update the browser cookie to persist dark theme accross refreshes
   setCookie('dark', document.body.classList.contains('dark'), 365)
 }
 document.querySelector('#btnDark').addEventListener('click', toggleDark)
 
+// Generate the html for the given article
 function generateArticle (article) {
   let newHTML = ''
 
+  // Format the date and source
   article.date = formatDate(article.date)
   article.source = formatURL(article.url)
 
@@ -80,6 +91,7 @@ function generateArticle (article) {
   newHTML += `<h6 class="card-subtitle mb-2 text-muted">${article.date + ' • ' + article.source}</h6>`
   newHTML += `<p class="card-text">${article.desc}</p>`
 
+  // Theme the link button appropriately for dark theme
   let btnClass = 'btn-primary'
   if (document.body.classList.contains('dark')) {
     btnClass = 'btn-dark'
@@ -96,22 +108,27 @@ function generateArticle (article) {
   return newHTML
 }
 
+// Request the news from the backend and update the page
 async function getNews () {
   const main = document.querySelector('main')
 
+  // Send the request for the latest news
   const response = await window.fetch('/api/query')
   const json = await response.json()
 
   if (json.success) {
+    // Clear the main page contents and build a new one
     main.innerHTML = ''
     Object.values(json.news).forEach(article => {
       main.innerHTML += generateArticle(article)
     })
   } else {
+    // Let the user know there was some form of error
     main.innerHTML = `<p>An error occured while getting news: ${json.message}</p>`
   }
 }
 
+// Call any functions needed on page load
 async function load () {
   await getNews()
 }

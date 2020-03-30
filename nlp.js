@@ -21,5 +21,5 @@ module.exports.getSentiment = function (text) {
   const analyzer = new SentimentAnalyzer('English', PorterStemmer, 'afinn')
   const analysis = analyzer.getSentiment(filteredText)
 
-  return analysis // numeric polarity of sentiment (good = 3, bad = -3)
+  return analysis // numeric polarity of sentiment (good = 1, bad = -1)
 }
