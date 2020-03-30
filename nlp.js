@@ -4,22 +4,36 @@ const { WordTokenizer, SentimentAnalyzer, PorterStemmer } = require('natural')
 const aposToLexForm = require('apos-to-lex-form')
 const SW = require('stopword')
 
-module.exports.getSentiment = function (text) {
-  // Pre-processing
+function Preprocess (text) {
   const lexedText = aposToLexForm(text) // [I'm, you're] -> [I am, you are]
   const casedText = lexedText.toLowerCase()
   const alphaOnlyText = casedText.replace(/[^a-zA-Z\s]+/g, ' ') // special chars/numbers can't convey sentiment
+  return alphaOnlyText
+}
 
-  // Tokenisation
+function Tokenize (text) {
   const tokenizer = new WordTokenizer()
-  const tokenizedText = tokenizer.tokenize(alphaOnlyText)
+  const tokenizedText = tokenizer.tokenize(text)
+  return tokenizedText
+}
 
-  // Remove stopwords (but, a, or, what)
-  const filteredText = SW.removeStopwords(tokenizedText)
+function Filter (text) {
+  // [but, what, a]
+  const filteredText = SW.removeStopwords(text)
+  return filteredText
+}
 
-  // Sentiment analysis
+function Analyze (text) {
+  // numeric polarity of sentiment (good = 1, bad = -1)
   const analyzer = new SentimentAnalyzer('English', PorterStemmer, 'afinn')
-  const analysis = analyzer.getSentiment(filteredText)
+  const analysis = analyzer.getSentiment(text)
+  return analysis
+}
 
-  return analysis // numeric polarity of sentiment (good = 1, bad = -1)
+module.exports.getSentiment = function (text) {
+  const PreprocessedText = Preprocess(text)
+  const tokenizedText = Tokenize(PreprocessedText)
+  const filteredText = Filter(tokenizedText)
+  const analysis = Analyze(filteredText)
+  return analysis
 }

@@ -34,8 +34,8 @@ function isSafeArticle (article) {
 }
 
 // Work out based on NLP if the article is positive
-function isPositiveArticle (article) {
-  return (getSentiment(article.title) >= 0) && (getSentiment(article.description) >= 0)
+function isPositiveArticle (article, neutral = 0) {
+  return (getSentiment(article.title) >= neutral) && (getSentiment(article.description) >= neutral)
 }
 
 // Check if the cache is younger than refreshTime
@@ -73,9 +73,12 @@ module.exports.getNews = function (callback) {
       response.news.forEach(article => {
         if (article.language !== 'en') { return }
 
-        const positiveArticle = isPositiveArticle(article)
-        if (!isSafeArticle(article) && !positiveArticle) { return }
-        if (!positiveArticle) { return }
+        // If article is deemed unsafe, raise neutrality bar
+        const safeArticle = isSafeArticle(article)
+        const neutral = safeArticle ? 0 : 0.25
+
+        // If article is deemed negative, discard
+        if (!isPositiveArticle(article, neutral)) { return }
 
         const tmpNews = {}
         tmpNews.title = article.title

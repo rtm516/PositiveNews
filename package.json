@@ -18,7 +18,9 @@
     "natural": "^0.6.3",
     "stopword": "^1.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "standard": "^14.3.3"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rtm516/PositiveNews.git"
