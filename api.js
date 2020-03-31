@@ -1,5 +1,6 @@
 const express = require('express')
 const { getNews } = require('./news')
+const { getReddit } = require('./reddit')
 
 const router = express.Router()
 
@@ -7,6 +8,26 @@ const router = express.Router()
 router.get('/query', function (req, res) {
   // Fetch the news
   getNews((data) => {
+    if (data === undefined || data === {}) {
+      // We got no data so send an error to the client
+      res.json({
+        success: false,
+        message: 'An unknown error occured'
+      })
+    } else {
+      // Send the client the latest data
+      res.json({
+        success: true,
+        news: data
+      })
+    }
+  })
+})
+
+// The main news query route
+router.get('/queryReddit', function (req, res) {
+  // Fetch the news
+  getReddit((data) => {
     if (data === undefined || data === {}) {
       // We got no data so send an error to the client
       res.json({

@@ -33,6 +33,7 @@
   "nodemonConfig": {
     "ignore": [
       "cache.json",
+      "cache_reddit.json",
       "public/*",
       "views/*"
     ]
