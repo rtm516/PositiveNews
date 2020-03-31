@@ -25,3 +25,10 @@ body.dark .close {
 	opacity: initial;
 	color: #fff;
 }
+
+body.dark a.reddit {
+  color: #00bc8c;
+}
+body.dark a.reddit:hover {
+  color: #007053;
+}

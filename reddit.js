@@ -25,7 +25,7 @@ function cleanArticle (article, safeNews) {
 
   const tmpNews = {}
   tmpNews.title = article.title
-  tmpNews.desc = 'From: ' + redditLink
+  tmpNews.desc = '<a class="reddit" href="https://reddit.com' + article.permalink + '">Provided by reddit on r/UpliftingNews</a>'
   tmpNews.url = article.url
   tmpNews.date = new Date(article.created_utc * 1000).toString()
 
