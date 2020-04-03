@@ -13,7 +13,7 @@ h1 {
   vertical-align: middle;
 }
 
-#btn-container > button, #sort-dropdown {
+#btn-container > button, #sort-dropdown, #source-dropdown {
 	display: inline-block;
 }
 

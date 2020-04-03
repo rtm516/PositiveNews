@@ -1,3 +1,5 @@
+/* global $ */
+
 // Format the given date with the time as HH:MMAM/PM DD/MM/YYYY
 function formatDate (date) {
   const d = new Date(date)
@@ -111,9 +113,16 @@ function generateArticle (article) {
 // Request the news from the backend and update the page
 async function getNews () {
   const main = document.querySelector('main')
+  const source = document.querySelector('#source-dropdown .dropdown-toggle').dataset.type
+
+  // Map the types to extra string for the query
+  const sourceMappings = {
+    news: '',
+    reddit: 'Reddit'
+  }
 
   // Send the request for the latest news
-  const response = await window.fetch('/api/query')
+  const response = await window.fetch('/api/query' + sourceMappings[source])
   const json = await response.json()
 
   if (json.success) {
@@ -134,3 +143,20 @@ async function load () {
 }
 
 load()
+
+// This file needs sorting because having this here is ugly
+$('#source-dropdown').on('hide.bs.dropdown', function (e) {
+  // Make sure the click event is there
+  if (e.clickEvent === undefined) { return }
+  const target = e.clickEvent.target
+
+  // Check if its an option we clicked on
+  if (target.classList.contains('dropdown-item')) {
+    // Update the dropdown and type
+    const dropdownBtn = this.querySelector('.dropdown-toggle')
+    dropdownBtn.innerHTML = target.innerHTML + ' <span class="caret"></span>'
+    dropdownBtn.dataset.type = target.id
+
+    getNews()
+  }
+})
