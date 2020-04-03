@@ -17,6 +17,11 @@ h1 {
 	display: inline-block;
 }
 
+#sort-dropdown {
+  margin-right: 5px;
+	display: inline-block;
+}
+
 .dropdown-item:hover{ 
   background: #007bff;
   color: #ffffff;
