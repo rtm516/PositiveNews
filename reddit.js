@@ -21,8 +21,6 @@ function cacheUptoDate () {
 function cleanArticle (article, safeNews) {
   if (safeNews[article.name] !== undefined) { return }
 
-  const redditLink = 'https://reddit.com' + article.permalink
-
   const tmpNews = {}
   tmpNews.title = article.title
   tmpNews.desc = '<a class="reddit" href="https://reddit.com' + article.permalink + '">Provided by reddit on r/UpliftingNews</a>'
