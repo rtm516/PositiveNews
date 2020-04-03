@@ -2,10 +2,19 @@
 <div class="container">
 	<header>
 		<h1>Positive News:</h1>
-		<div id="btn-container">
+		<div id="btn-container float-right">
 			<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#aboutModal"><i class="far fa-question-circle"></i></button>
-			<button type="button" class="btn <% if (darkTheme) { %> btn-light <% } else { %> btn-dark <% } %> float-right" id="btnDark"><i class="fas <% if (darkTheme) { %> fa-sun <% } else { %> fa-moon <% } %>"></i></button>
-		</div>
+      <button type="button" class="btn <% if (darkTheme) { %> btn-light <% } else { %> btn-dark <% } %> float-right" id="btnDark"><i class="fas <% if (darkTheme) { %> fa-sun <% } else { %> fa-moon <% } %>"></i></button>
+    </div>
+    <div class="dropdown float-left">
+      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">🕑 Latest
+      <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">⭐ Featured</a></li>
+        <li><a class="dropdown-item" href="#">🕑 Latest</a></li>
+        <li><a class="dropdown-item" href="#">😃 Happiest</a></li>
+      </ul>
+    </div> 
 	</header>
 	<main>
 		<p>Loading...</p>
