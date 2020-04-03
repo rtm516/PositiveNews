@@ -3,23 +3,22 @@ body.dark {
 	color: #fff;
 }
 
-body.dark .dropdown button{ 
+body.dark .dropdown button, body.dark .show > .btn-primary.dropdown-toggle{ 
   background-color: var(--gray);
   border-color: var(--gray);
 }
 
-.show > .btn-primary.dropdown-toggle{ 
-  background-color: var(--gray);
-  border-color: var(--gray);
-}
-
-.show > .btn-primary.dropdown-toggle:focus{
-  box-shadow: var(--gray);
+body.dark .dropdown-item{  
+  color: #ffffff;
 }
 
 body.dark .dropdown-item:hover{ 
+  background-color: var(--gray-dark);
+}
+
+body.dark .show > .dropdown-menu {
   background-color: var(--gray);
-  color: #ffffff;
+  color: #fff;
 }
 
 body.dark .card {

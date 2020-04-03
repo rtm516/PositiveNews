@@ -17,6 +17,10 @@ h1 {
 	display: inline-block;
 }
 
+.dropdown-toggle .fa-star, .dropdown-toggle .fa-laugh-beam{
+  color: gold;
+}
+
 .dropdown-item:hover{ 
   background-color: #007bff;
   color: #ffffff;
