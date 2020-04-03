@@ -77,27 +77,6 @@ function toggleDark () {
 }
 document.querySelector('#btnDark').addEventListener('click', toggleDark)
 
-//Update dropdown listing - DOES NOT do sorting (yet)
-/*$(".dropdown-menu").on('click', 'li a', function(){
-  $(".btn:first-child").text($(this).text());
-  $(".btn:first-child").val($(this).text());
-});*/
-
-$('#source-dropdown').on('hide.bs.dropdown', function (e) {
-  const target = e.clickEvent.target
-
-  // Check if its an option we clicked on
-  if (target.classList.contains('dropdown-item')) {
-    const dropdownBtn = this.querySelector('.dropdown-toggle')
-    dropdownBtn.innerHTML = target.innerHTML + ' <span class="caret"></span>'
-    dropdownBtn.dataset.type = target.id
-  }
-})
-function updateDropdown(text, value)
-{
-  
-}
-
 // Generate the html for the given article
 function generateArticle (article) {
   let newHTML = ''
@@ -166,6 +145,21 @@ async function load () {
 load()
 
 // This file needs sorting because having this here is ugly
+$('#sort-dropdown').on('hide.bs.dropdown', function (e) {
+  // Make sure the click event is there
+  if (e.clickEvent === undefined) { return }
+  const target = e.clickEvent.target
+
+  // Check if its an option we clicked on
+  if (target.classList.contains('dropdown-item')) {
+    // Update the dropdown and type
+    const dropdownBtn = this.querySelector('#sort-dropdown .dropdown-toggle')
+    dropdownBtn.innerHTML = target.innerHTML + ' <span class="caret"></span>'
+    dropdownBtn.dataset.type = target.id
+  }
+})
+
+// This file needs sorting because having this here is ugly
 $('#source-dropdown').on('hide.bs.dropdown', function (e) {
   // Make sure the click event is there
   if (e.clickEvent === undefined) { return }
@@ -174,7 +168,7 @@ $('#source-dropdown').on('hide.bs.dropdown', function (e) {
   // Check if its an option we clicked on
   if (target.classList.contains('dropdown-item')) {
     // Update the dropdown and type
-    const dropdownBtn = this.querySelector('.dropdown-toggle')
+    const dropdownBtn = this.querySelector('#source-dropdown .dropdown-toggle')
     dropdownBtn.innerHTML = target.innerHTML + ' <span class="caret"></span>'
     dropdownBtn.dataset.type = target.id
 
