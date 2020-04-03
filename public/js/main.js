@@ -144,6 +144,7 @@ async function load () {
 
 load()
 
+
 // This file needs sorting because having this here is ugly
 $('#sort-dropdown').on('hide.bs.dropdown', function (e) {
   // Make sure the click event is there
