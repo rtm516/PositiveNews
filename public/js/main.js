@@ -144,9 +144,8 @@ async function load () {
 
 load()
 
-
-// This file needs sorting because having this here is ugly
-$('#sort-dropdown').on('hide.bs.dropdown', function (e) {
+//Update dropdowns with selected item
+function UpdateDropdown (root, e, btnID) {
   // Make sure the click event is there
   if (e.clickEvent === undefined) { return }
   const target = e.clickEvent.target
@@ -154,25 +153,17 @@ $('#sort-dropdown').on('hide.bs.dropdown', function (e) {
   // Check if its an option we clicked on
   if (target.classList.contains('dropdown-item')) {
     // Update the dropdown and type
-    const dropdownBtn = this.querySelector('#sort-dropdown .dropdown-toggle')
+    const dropdownBtn = root.querySelector(btnID + ' .dropdown-toggle')
     dropdownBtn.innerHTML = target.innerHTML + ' <span class="caret"></span>'
     dropdownBtn.dataset.type = target.id
   }
+}
+
+$('#sort-dropdown').on('hide.bs.dropdown', function (e) {
+  UpdateDropdown(this, e, '#sort-dropdown')
 })
 
-// This file needs sorting because having this here is ugly
 $('#source-dropdown').on('hide.bs.dropdown', function (e) {
-  // Make sure the click event is there
-  if (e.clickEvent === undefined) { return }
-  const target = e.clickEvent.target
-
-  // Check if its an option we clicked on
-  if (target.classList.contains('dropdown-item')) {
-    // Update the dropdown and type
-    const dropdownBtn = this.querySelector('#source-dropdown .dropdown-toggle')
-    dropdownBtn.innerHTML = target.innerHTML + ' <span class="caret"></span>'
-    dropdownBtn.dataset.type = target.id
-
-    getNews()
-  }
+  UpdateDropdown(this, e, '#source-dropdown')
+  getNews()
 })
