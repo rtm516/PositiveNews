@@ -35,7 +35,10 @@ function isSafeArticle (article) {
 
 // Work out based on NLP if the article is positive
 function isPositiveArticle (article, neutral = 0) {
-  return (getSentiment(article.title) >= neutral) && (getSentiment(article.description) >= neutral)
+  const titleSentiment = getSentiment(article.title)
+  const descSentiment = getSentiment(article.description)
+
+  return [(titleSentiment >= neutral) && (descSentiment >= neutral), Math.max(titleSentiment, descSentiment)]
 }
 
 // Check if the cache is younger than refreshTime
@@ -60,12 +63,14 @@ function cleanArticle (article, safeNews) {
   const neutral = safeArticle ? 0 : 0.25
 
   // If article is deemed negative, discard
-  if (!isPositiveArticle(article, neutral)) { return }
+  const [isPositive, sentiment] = isPositiveArticle(article, neutral)
+  if (!isPositive) { return }
 
   const tmpNews = {}
   tmpNews.title = article.title
   tmpNews.desc = article.description
   tmpNews.url = article.url
+  tmpNews.sentiment = sentiment
   tmpNews.date = new Date(article.published).toString()
 
   safeNews[article.id] = tmpNews
