@@ -3,6 +3,25 @@ body.dark {
 	color: #fff;
 }
 
+body.dark .dropdown button{ 
+  background-color: var(--gray);
+  border-color: var(--gray);
+}
+
+.show > .btn-primary.dropdown-toggle{ 
+  background-color: var(--gray);
+  border-color: var(--gray);
+}
+
+.show > .btn-primary.dropdown-toggle:focus{
+  box-shadow: var(--gray);
+}
+
+body.dark .dropdown-item:hover{ 
+  background-color: var(--gray);
+  color: #ffffff;
+}
+
 body.dark .card {
 	background-color: var(--gray);
 	color: #fff;
