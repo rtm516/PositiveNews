@@ -13,7 +13,7 @@ h1 {
   vertical-align: middle;
 }
 
-#btn-container > button {
+#btn-container > button, #sort-dropdown {
 	display: inline-block;
 }
 
@@ -24,10 +24,6 @@ h1 {
 
 body, .card, a, .text-muted, #btnDark {
 	transition: background-color 0.5s ease, color 0.5s ease;
-}
-
-#btnDark {
-	margin-right: 5px;
 }
 
 .card {
