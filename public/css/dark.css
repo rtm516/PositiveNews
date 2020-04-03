@@ -3,16 +3,25 @@ body.dark {
 	color: #fff;
 }
 
-body.dark .dropdown button, body.dark .show > .btn-primary.dropdown-toggle{ 
+body.dark .dropdown button {
   background-color: var(--gray);
   border-color: var(--gray);
 }
 
-body.dark .dropdown-item{  
+body.dark .dropdown .dropdown-toggle:hover, body.dark .dropdown.show .dropdown-toggle, body.dark .dropdown .dropdown-toggle:active {
+  background-color: #5f666d;
+  border-color: #585e65;
+}
+
+body.dark .dropdown .dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(102, 109, 117, .5);
+}
+
+body.dark .dropdown-item {
   color: #ffffff;
 }
 
-body.dark .dropdown-item:hover{ 
+body.dark .dropdown-item:hover {
   background-color: var(--gray-dark);
 }
 

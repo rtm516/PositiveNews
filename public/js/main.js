@@ -115,6 +115,8 @@ async function getNews () {
   const main = document.querySelector('main')
   const source = document.querySelector('#source-dropdown .dropdown-toggle').dataset.type
 
+  main.innerHTML = '<p>Loading...</p>'
+
   // Map the types to extra string for the query
   const sourceMappings = {
     news: '',
@@ -144,8 +146,8 @@ async function load () {
 
 load()
 
-//Update dropdowns with selected item
-function UpdateDropdown (root, e, btnID) {
+// Update dropdowns with selected item
+function UpdateDropdown (root, e) {
   // Make sure the click event is there
   if (e.clickEvent === undefined) { return }
   const target = e.clickEvent.target
@@ -153,17 +155,17 @@ function UpdateDropdown (root, e, btnID) {
   // Check if its an option we clicked on
   if (target.classList.contains('dropdown-item')) {
     // Update the dropdown and type
-    const dropdownBtn = root.querySelector(btnID + ' .dropdown-toggle')
+    const dropdownBtn = root.querySelector('.dropdown-toggle')
     dropdownBtn.innerHTML = target.innerHTML + ' <span class="caret"></span>'
     dropdownBtn.dataset.type = target.id
   }
 }
 
 $('#sort-dropdown').on('hide.bs.dropdown', function (e) {
-  UpdateDropdown(this, e, '#sort-dropdown')
+  UpdateDropdown(this, e)
 })
 
 $('#source-dropdown').on('hide.bs.dropdown', function (e) {
-  UpdateDropdown(this, e, '#source-dropdown')
+  UpdateDropdown(this, e)
   getNews()
 })
