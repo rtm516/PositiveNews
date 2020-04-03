@@ -1,5 +1,32 @@
 /* global $ */
 
+// The different sort types
+const sortFunctions = {
+  latest: (newsArray) => {
+    return newsArray.sort((a, b) => {
+      return (new Date(a.date).getTime() < new Date(b.date).getTime() ? 1 : -1)
+    })
+  },
+
+  featured: (newsArray) => {
+    // TODO: Implement this
+    // Not sure how this is going to be implemented
+    return newsArray
+  },
+
+  happiest: (newsArray) => {
+    return newsArray.sort((a, b) => {
+      return (a.sentiment < b.sentiment ? 1 : -1)
+    })
+  }
+}
+
+// Map the types to extra string for the query
+const sourceMappings = {
+  news: '',
+  reddit: 'Reddit'
+}
+
 // Format the given date with the time as HH:MMAM/PM DD/MM/YYYY
 function formatDate (date) {
   const d = new Date(date)
@@ -82,15 +109,15 @@ function generateArticle (article) {
   let newHTML = ''
 
   // Format the date and source
-  article.date = formatDate(article.date)
-  article.source = formatURL(article.url)
+  const parsedDate = formatDate(article.date)
+  const parsedSource = formatURL(article.url)
 
   newHTML += '<div class="card">'
 
   newHTML += '<div class="card-body">'
 
   newHTML += `<h5 class="card-title">${article.title}</h5>`
-  newHTML += `<h6 class="card-subtitle mb-2 text-muted">${article.date + ' &bull; ' + article.source}</h6>`
+  newHTML += `<h6 class="card-subtitle mb-2 text-muted">${parsedDate + ' &bull; ' + parsedSource}</h6>`
   newHTML += `<p class="card-text">${article.desc.replace(/\n/g, '<br>')}</p>`
 
   // Theme the link button appropriately for dark theme
@@ -110,6 +137,18 @@ function generateArticle (article) {
   return newHTML
 }
 
+function sortNews () {
+  const main = document.querySelector('main')
+  const sort = document.querySelector('#sort-dropdown .dropdown-toggle').dataset.type
+
+  // Clear the main page contents and build a new one
+  main.innerHTML = ''
+
+  sortFunctions[sort](Object.values(window.newsData)).forEach(article => {
+    main.innerHTML += generateArticle(article)
+  })
+}
+
 // Request the news from the backend and update the page
 async function getNews () {
   const main = document.querySelector('main')
@@ -117,22 +156,16 @@ async function getNews () {
 
   main.innerHTML = '<p>Loading...</p>'
 
-  // Map the types to extra string for the query
-  const sourceMappings = {
-    news: '',
-    reddit: 'Reddit'
-  }
-
   // Send the request for the latest news
   const response = await window.fetch('/api/query' + sourceMappings[source])
   const json = await response.json()
 
   if (json.success) {
-    // Clear the main page contents and build a new one
-    main.innerHTML = ''
-    Object.values(json.news).forEach(article => {
-      main.innerHTML += generateArticle(article)
-    })
+    // Store the newsData for the sorting
+    window.newsData = json.news
+
+    // Call the sorting function
+    sortNews()
   } else {
     // Let the user know there was some form of error
     main.innerHTML = `<p>An error occured while getting news: ${json.message}</p>`
@@ -149,7 +182,7 @@ load()
 // Update dropdowns with selected item
 function UpdateDropdown (root, e) {
   // Make sure the click event is there
-  if (e.clickEvent === undefined) { return }
+  if (e.clickEvent === undefined) { return false }
   const target = e.clickEvent.target
 
   // Check if its an option we clicked on
@@ -157,15 +190,22 @@ function UpdateDropdown (root, e) {
     // Update the dropdown and type
     const dropdownBtn = root.querySelector('.dropdown-toggle')
     dropdownBtn.innerHTML = target.innerHTML + ' <span class="caret"></span>'
-    dropdownBtn.dataset.type = target.id
+    dropdownBtn.dataset.type = target.dataset.type
+
+    return true
   }
+
+  return false
 }
 
 $('#sort-dropdown').on('hide.bs.dropdown', function (e) {
-  UpdateDropdown(this, e)
+  if (UpdateDropdown(this, e)) {
+    sortNews()
+  }
 })
 
 $('#source-dropdown').on('hide.bs.dropdown', function (e) {
-  UpdateDropdown(this, e)
-  getNews()
+  if (UpdateDropdown(this, e)) {
+    getNews()
+  }
 })
