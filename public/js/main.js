@@ -126,7 +126,7 @@ function generateArticle (article) {
     btnClass = 'btn-dark'
   }
 
-  newHTML += `<a href="${article.url}" class="card-link btn ${btnClass}">Visit</a>`
+  newHTML += `<a href="${article.url}" class="card-link btn ${btnClass}">Read More <i class="fas fa-external-link-alt"></i></a>`
 
   newHTML += '</div>'
 

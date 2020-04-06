@@ -1,42 +1,52 @@
+body.dark{
+  --bg-color: #121212;
+  --accent-color: var(--purple);
+}
+
 body.dark {
-	background-color: var(--gray-dark);
+	background-color: var(--bg-color);
 	color: #fff;
 }
 
-body.dark .dropdown button {
-  background-color: var(--gray);
-  border-color: var(--gray);
+body.dark .dropdown > .btn {
+  background-color: var(--bg-color);
+  border-color: white;
+  font-weight: bold;
 }
 
-body.dark .dropdown .dropdown-toggle:hover, body.dark .dropdown.show .dropdown-toggle, body.dark .dropdown .dropdown-toggle:active {
-  background-color: #5f666d;
-  border-color: #585e65;
+body.dark .dropdown .dropdown-toggle:hover,
+body.dark .dropdown.show .dropdown-toggle{
+  background-color: var(--accent-color);
+  border-color: white;
 }
 
-body.dark .dropdown .dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(102, 109, 117, .5);
+body.dark .dropdown-menu{
+  background-color: var(--bg-color);
+  border-color: white;
 }
 
-body.dark .dropdown-item {
-  color: #ffffff;
+body.dark .dropdown-item{
+  color: white;
 }
 
-body.dark .dropdown-item:hover {
-  background-color: var(--gray-dark);
-}
-
-body.dark .show > .dropdown-menu {
-  background-color: var(--gray);
-  color: #fff;
+body.dark .dropdown-item:hover {  
+  background-color: var(--accent-color);
 }
 
 body.dark .card {
-	background-color: var(--gray);
-	color: #fff;
+	background-color: var(--bg-color);
+  color: #fff;
 }
 
-body.dark .text-muted {
-	color: var(--light) !important;
+body.dark .card .btn
+{
+  color: #000000;
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+body.dark .card .btn:hover{
+  color: white;
 }
 
 body.dark #btnDark {
@@ -47,15 +57,10 @@ body.dark .modal-content {
 	background-color: var(--gray-dark);
 }
 
+/*Doesn't seem to do anything but I don't remember
+  adding this so I'll let you decide if we need it*/
 body.dark .close {
 	text-shadow: initial;
 	opacity: initial;
-	color: #fff;
-}
-
-body.dark a.reddit {
-  color: #00bc8c;
-}
-body.dark a.reddit:hover {
-  color: #007053;
+	color: red;
 }

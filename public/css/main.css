@@ -1,3 +1,7 @@
+:root{
+  --reddit-orange: #FF4500;
+}
+
 header {
 	display: table !important;
 	width: 100%;
@@ -17,7 +21,7 @@ h1 {
 	display: inline-block;
 }
 
-.dropdown-toggle .fa-star, .dropdown-toggle .fa-laugh-beam{
+.dropdown > .btn .fa-star, .dropdown > .btn .fa-laugh-beam{
   color: gold;
 }
 
@@ -31,5 +35,21 @@ body, .card, a, .text-muted, #btnDark {
 }
 
 .card {
-	color: #212529;
+  color: #212529;
+  /*1dp elevation*/
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.20);
+}
+
+.btn, .dropdown-item, a.reddit {
+  font-weight: bold;
+}
+
+a.reddit {
+  color: var(--reddit-orange);
+  font-weight: bold;
+}
+
+a.reddit:hover {
+  background-color: var(--reddit-orange);
+  color: white;
 }
