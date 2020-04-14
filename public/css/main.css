@@ -21,7 +21,7 @@ h1 {
 	display: inline-block;
 }
 
-.dropdown > .btn .fa-star, .dropdown > .btn .fa-laugh-beam{
+.dropdown > .btn .fa-laugh-beam{
   color: gold;
 }
 
