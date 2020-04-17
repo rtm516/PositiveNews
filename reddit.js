@@ -20,10 +20,12 @@ function cacheUptoDate () {
 // Check if an article is positive and pulling over only infomation we need
 function cleanArticle (article, safeNews) {
   if (safeNews[article.name] !== undefined) { return }
-  //Reject any posts with less than 10 upvotes
-  if(article.score <= 10) { return }
+  // Reject any posts with less than 10 upvotes
+  if (article.score <= 10) { return }
 
-  //Construct object with required keys
+  console.log(article)
+
+  // Construct object with required keys
   const tmpNews = {}
   tmpNews.title = article.title
   tmpNews.desc = '<a class="reddit" href="https://reddit.com' + article.permalink + '">Provided by reddit on r/UpliftingNews</a>'
@@ -31,7 +33,7 @@ function cleanArticle (article, safeNews) {
   tmpNews.date = new Date(article.created_utc * 1000).toString()
   tmpNews.sentiment = article.score
 
-  //Save object to cache
+  // Save object to cache
   safeNews[article.name] = tmpNews
 }
 

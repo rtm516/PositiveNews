@@ -56,6 +56,11 @@ a.reddit:hover {
 
 @media (orientation: portrait) {
   header > h1 {
-    font-size: 1.5em;
+    display: block;
+  }
+
+  header > #btn-container {
+    float: none!important;
+    display: block;
   }
 }
