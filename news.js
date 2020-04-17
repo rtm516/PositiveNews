@@ -3,7 +3,7 @@ const fs = require('fs')
 const { getSentiment } = require('./nlp')
 
 // Setup the news api using https://www.currentsapi.services/
-const apiKey = '3bVjgioSJtX59a2MKl3beRcMSH6WtB6Z7kxadAa6bFumBdVb'
+const apiKey = process.env.CURRENTSAPI || 'INSERT_API_KEY'
 const currentsapi = new CurrentsAPI(apiKey)
 
 // The time the cache is kept for
